@@ -15,8 +15,6 @@ custom adaptors.
 
 =head1 AUTHOR - Vsevolod (Simon) Ilyushchenko
 
-Email simonf@cshl.edu
-
 =cut
 
 package Bio::DB::Das::BioSQL::DBAdaptor;

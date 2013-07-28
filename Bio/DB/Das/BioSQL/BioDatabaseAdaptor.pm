@@ -31,8 +31,6 @@ Bug reports can be submitted via email or the web:
 
 =head1 AUTHORS - Ewan Birney, Vsevolod (Simon) Ilyushchenko
 
-Emails birney@ebi.ac.uk, simonf@cshl.edu
-
 =cut
 
 package Bio::DB::Das::BioSQL::BioDatabaseAdaptor;

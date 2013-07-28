@@ -59,8 +59,6 @@ or the web:
 
 =head1 AUTHORS - Lincoln Stein, Vsevolod (Simon) Ilyushchenko
 
-Email lstein@cshl.edu, simonf@cshl.edu
-
 =head1 APPENDIX
 
 The rest of the documentation details each of the object

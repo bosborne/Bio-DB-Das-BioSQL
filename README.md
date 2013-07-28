@@ -1,4 +1,7 @@
 Bio-DB-Das-BioSQL-0.04
 ======================
 
-This supercedes the version 3 in CPAN, which is missing a number of useful methods.
+These modules provide a DasI API to BioSQL (see http://biosql.org). With this package you can use 
+BioSQL as a backend database for JBrowse (see http://jbrowse.org).
+
+This supercedes version 3 in CPAN, which is missing a number of useful methods.
