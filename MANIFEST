@@ -1,0 +1,9 @@
+Bio/DB/Das/BioSQL.pm
+Bio/DB/Das/BioSQL/BioDatabaseAdaptor.pm
+Bio/DB/Das/BioSQL/DBAdaptor.pm
+Bio/DB/Das/BioSQL/Iterator.pm
+Bio/DB/Das/BioSQL/PartialSeqAdaptor.pm
+Bio/DB/Das/BioSQL/Segment.pm
+Build.PL
+MANIFEST			This list of files
+README.md
