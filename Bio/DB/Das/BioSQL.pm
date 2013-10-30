@@ -84,6 +84,8 @@ or the web:
 
 Lincoln Stein, Vsevolod (Simon) Ilyushchenko, Brian Osborne
 
+Email lstein@cshl.edu, simonf@cshl.edu
+
 =head1 APPENDIX
 
 The rest of the documentation details each of the object
@@ -180,6 +182,8 @@ Arguments are -option=E<gt>value pairs as follows:
  -end          End of the segment relative to the landmark.  If not specified,
                defaults to the end of the landmark.
 
+ -absolute
+
 The return value is a list of Bio::Das::SegmentI objects.  If the method
 is called in a scalar context and there are no more than one segments
 that satisfy the request, then it is allowed to return the segment.
@@ -191,10 +195,7 @@ sub segment {
     my $self = shift;
     my ( $name, $start, $end, $class, $version, $absolute ) = $self->_rearrange(
         [
-            [ 'NAME', 'REF' ],
-            'START',
-            [ 'END', 'STOP' ],
-            qw(CLASS VERSION ABSOLUTE)
+            qw(NAME START END CLASS VERSION ABSOLUTE)
         ],
         @_
     );
@@ -217,13 +218,7 @@ sub get_feature_by_name {
     my ($self) = shift;
     my ( $name, $start, $end, $class, $version, $id ) = $self->_rearrange(
         [
-            qw(NAME
-              START
-              END
-              CLASS
-              VERSION
-              FEATURE_ID
-              )
+            qw(NAME START END CLASS VERSION FEATURE_ID)
         ],
         @_
     );
