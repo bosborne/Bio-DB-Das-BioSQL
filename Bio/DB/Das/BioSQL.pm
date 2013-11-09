@@ -284,8 +284,8 @@ interrupted.  When a callback is provided, the method returns undef.
 
 sub features {
     my $self = shift;
-    my ( $type, $callback, $attributes, $segment ) =
-      $self->_rearrange( [qw(TYPE CALLBACK ATTRIBUTES SEGMENT)], @_ );
+    my ( $type, $callback, $attributes, $segment, $seq_id ) =
+      $self->_rearrange( [qw(TYPE CALLBACK ATTRIBUTES SEGMENT SEQ_ID)], @_ );
 
     my @features = $segment->top_SeqFeatures;
 
@@ -415,7 +415,7 @@ sub get_seq_stream {
     # Make $type an array reference if it's not
     $type = [$type] if ( $type && !ref $type);
 
-    my @features = $self->features( -type => $type, -segment => $segment );
+    my @features = $self->features( -type => $type, -segment => $segment, -seq_id => $seq_id );
 
     return $self->_iteratorclass->new( \@features );
 }

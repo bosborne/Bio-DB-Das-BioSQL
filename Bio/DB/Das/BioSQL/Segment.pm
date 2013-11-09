@@ -335,28 +335,28 @@ Then, get the actual objects and adjust the features' locations if necessary.
 
 =cut
 
-sub top_SeqFeatures
-{
+sub top_SeqFeatures {
     my ($self) = @_;
 
-    $self->bioseq->adaptor->slow_attach_children($self->bioseq, $self->start, $self->end);
-    
-    my @result = map {$self->wrap_feature($_)} $self->bioseq->get_SeqFeatures();
-    
-    unless ($self->absolute)
-    {
-        foreach my $feat (@result)
-        {
-            #$feat->start($feat->start - $self->start);
-            foreach my $loc ($feat->location->each_Location)
-            {
-                $loc->start($loc->start - $self->start + 1);
-                $loc->end($loc->end - $self->start + 1);
+    $self->bioseq->adaptor->slow_attach_children( $self->bioseq,
+        $self->start, $self->end );
+
+    my @result = map { $self->wrap_feature($_) } $self->bioseq->get_SeqFeatures();
+
+    unless ( $self->absolute ) {
+        for my $feat (@result) {
+            for my $loc ( $feat->location->each_Location ) {
+                $loc->start( $loc->start - $self->start + 1 );
+                $loc->end( $loc->end - $self->start + 1 );
             }
         }
     }
+
+    for my $feat (@result) {
+          $feat->seq_id( $self->seq_id );
+    }
+
     return @result;
-    
 }
 
 
@@ -431,7 +431,7 @@ sub factory {shift->{dbadaptor}}
  Title   : bioseq
  Usage   : $bioseq = $s->bioseq
  Function: return the underlying Bio::Seq object
-  Returns : a Bio::Seq object
+ Returns : a Bio::Seq object
  Args    : none
  Status  : Public
 
@@ -518,8 +518,9 @@ sub new {
 }
 
 sub seq_id {
-    my $self = shift;
-    return eval{$self->seq->id};
+    my ($self, $id) = @_;
+    $self->{'seq_id'} = $id if $id;
+    $self->{'seq_id'};
 }
 
 sub ref { shift->seq_id }
