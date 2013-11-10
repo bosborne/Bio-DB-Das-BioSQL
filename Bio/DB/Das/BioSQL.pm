@@ -107,7 +107,7 @@ use constant SEG_CLASS      => 'Bio::DB::Das::BioSQL::Segment';
 use constant ADAPTOR_CLASS  => 'Bio::DB::Das::BioSQL::BioDatabaseAdaptor';
 use constant ITERATOR_CLASS => 'Bio::DB::Das::BioSQL::Iterator';
 
-$VERSION = 0.04;
+$VERSION = 0.05;
 @ISA     = qw(Bio::Root::Root Bio::DasI);
 
 # Install horrible patch for GBrowse compatibility
