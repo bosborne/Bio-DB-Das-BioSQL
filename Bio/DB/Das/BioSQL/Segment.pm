@@ -6,7 +6,7 @@ Bio::DB::Das::BioSQL::Segment - DAS-style access to a BioSQL database
 
   # Get a Bio::Das::SegmentI object from a Bio::DB::Das::BioSQL database...
 
-  #Should be created through Bio::DB::Das::BioSQL.
+  # Should be created through Bio::DB::Das::BioSQL.
 
   @features = $segment->overlapping_features(-type=>['type1','type2']);
   # each feature is a Bio::SeqFeatureI-compliant object
@@ -34,9 +34,10 @@ The segment will load its features only when the features() method is called.
 If start and end are not specified and features are requested, all the features
 for the current segment will be retrieved, which may be slow.
 
-Segment can be created as relative or absolute. If it's absolute ,all locations are given
-beginning from segment's start, that is, they are between  [1 .. (end-start)].
-Otherwise, they are given relative to the true start of the segment, irregardless of the start value.
+Segment can be created as relative or absolute. If it's absolute ,all locations 
+are given beginning from segment's start, that is, they are between [1 .. (end-start)].
+Otherwise, they are given relative to the true start of the segment, irregardless of 
+the start value.
 
 =head1 FEEDBACK
 
@@ -57,7 +58,7 @@ or the web:
   bioperl-bugs@bio.perl.org
   http://bio.perl.org/bioperl-bugs/
 
-=head1 AUTHORS - Lincoln Stein, Vsevolod (Simon) Ilyushchenko
+=head1 AUTHORS - Lincoln Stein, Vsevolod (Simon) Ilyushchenko, Brian Osborne
 
 =head1 APPENDIX
 
@@ -507,6 +508,13 @@ sub wrap_feature {
     return Bio::DB::Das::BioSQL::Feature->new(shift);
 }
 
+
+=head2
+
+Bio::DB::Das::BioSQL::Feature
+
+=cut
+
 package Bio::DB::Das::BioSQL::Feature;
 
 use base 'Bio::DB::Persistent::SeqFeature';
@@ -519,11 +527,9 @@ sub new {
 
 sub seq_id {
     my ($self, $id) = @_;
-    $self->{'seq_id'} = $id if $id;
+    $self->{'seq_id'} = $id if defined $id;
     $self->{'seq_id'};
 }
-
-sub ref { shift->seq_id }
 
 sub display_name {
     my $self = shift;
@@ -535,14 +541,6 @@ sub display_name {
     return $self->primary_tag . "(" . $self->primary_key . ")";
 }
 
-sub attributes {
-    shift->get_tag_values();
-}
-
-sub method { 
-    shift->primary_tag;
-}
-
 sub type {
     my $self = shift;
     my $method = $self->primary_tag;
@@ -551,6 +549,9 @@ sub type {
     return $method;
 }
 
+sub attributes { shift->get_tag_values() }
+sub method     { shift->primary_tag }
+sub ref        { shift->seq_id }
 sub name       { shift->display_name }
 sub primary_id { shift->primary_key }
 sub abs_ref    { shift->ref }
