@@ -50,29 +50,29 @@ use Bio::DB::Query::BioQuery;
 
 =cut
 
-sub new_from_registry{
-   my ($class, %conf) = @_;
-   
-   #Add our own directory where DBAdaptor is located.
-   Bio::DB::BioDB->add_db_mapping("FastBioSQL", "Bio::DB::Das::BioSQL::");
+sub new_from_registry {
+    my ( $class, %conf ) = @_;
 
-   my $db = Bio::DB::BioDB->new(
-                                -database => 'FastBioSQL',
-                                -dbname   => $conf{'dbname'},
-                                -host     => $conf{'location'},
-                                -driver   => $conf{'driver'},
-                                -user     => $conf{'user'},
-                                -pass     => $conf{'pass'},
-                                -port     => $conf{'port'}
-                                );
+    #Add our own directory where DBAdaptor is located.
+    Bio::DB::BioDB->add_db_mapping( "FastBioSQL", "Bio::DB::Das::BioSQL::" );
+
+    my $db = Bio::DB::BioDB->new(
+        -database => 'FastBioSQL',
+        -dbname   => $conf{'dbname'},
+        -host     => $conf{'location'},
+        -driver   => $conf{'driver'},
+        -user     => $conf{'user'},
+        -pass     => $conf{'pass'},
+        -port     => $conf{'port'}
+    );
 
     my $self = bless {}, ref($class) || $class;
 
-   $self->namespace($conf{'namespace'});
-   $self->version($conf{'version'});
-   $self->db($db);
-   
-   return $self;
+    $self->namespace( $conf{'namespace'} );
+    $self->version( $conf{'version'} );
+    $self->db($db);
+
+    return $self;
 }
 
 
@@ -89,20 +89,25 @@ sub new_from_registry{
 =cut
 
 sub fetch_Seq_by_accession {
-  my ( $self, $acc ) = @_;
-  my $namespace = $self->namespace;
-  my $version   = $self->version;
-  my $query = Bio::DB::Query::BioQuery->new(
-       -datacollections =>
-         [ "Bio::SeqI seq", "Bio::DB::Persistent::BioNamespace=>Bio::SeqI db" ],
-       -where => [ "db.namespace ='$namespace'", "seq.accession_number = '$acc'", 
-       $version && $version < 100 ? ("seq.version = '$version'") : () ]
-  );
+    my ( $self, $acc ) = @_;
+    my $namespace = $self->namespace;
+    my $version   = $self->version;
+    my $query     = Bio::DB::Query::BioQuery->new(
+        -datacollections => [
+            "Bio::SeqI seq",
+            "Bio::DB::Persistent::BioNamespace=>Bio::SeqI db"
+        ],
+        -where => [
+            "db.namespace ='$namespace'",
+            "seq.accession_number = '$acc'",
+            $version && $version < 100 ? ("seq.version = '$version'") : ()
+        ]
+    );
 
-  my $adp     = $self->db->get_object_adaptor("Bio::Seq");
-  my @results = @{$adp->find_by_query($query)->each_Object};
+    my $adp     = $self->db->get_object_adaptor("Bio::Seq");
+    my @results = @{ $adp->find_by_query($query)->each_Object };
 
-  return  wantarray ? @results : $results[0];
+    return wantarray ? @results : $results[0];
 }
 
 sub db {
