@@ -84,8 +84,6 @@ or the web:
 
 Lincoln Stein, Vsevolod (Simon) Ilyushchenko, Brian Osborne
 
-Email lstein@cshl.edu, simonf@cshl.edu
-
 =head1 APPENDIX
 
 The rest of the documentation details each of the object
